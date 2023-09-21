@@ -54,7 +54,15 @@ class HomePage extends StatelessWidget {
                   ),
                   onTap: () {
                     // 아이템 클릭시
-                    print('$memo : 클릭 됨');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => DetailPage(
+                          index: index,
+                          memoList: memoList,
+                        ),
+                      ),
+                    );
                   },
                 );
               },
@@ -64,9 +72,15 @@ class HomePage extends StatelessWidget {
         child: Icon(Icons.add),
         onPressed: () {
           // + 버튼 클릭시 메모 생성 및 수정 페이지로 이동
+          String memo = ''; // 빈 메모 내용 추가
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => DetailPage()),
+            MaterialPageRoute(
+              builder: (_) => DetailPage(
+                index: memoList.indexOf(memo),
+                memoList: memoList,
+              ),
+            ),
           );
         },
       ),
@@ -76,12 +90,17 @@ class HomePage extends StatelessWidget {
 
 // 메모 생성 및 수정 페이지
 class DetailPage extends StatelessWidget {
-  DetailPage({super.key});
+  DetailPage({super.key, required this.memoList, required this.index});
+
+  final List<String> memoList;
+  final int index;
 
   TextEditingController contentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    contentController.text = memoList[index]; // 초기값 지정
+
     return Scaffold(
       appBar: AppBar(
         actions: [
