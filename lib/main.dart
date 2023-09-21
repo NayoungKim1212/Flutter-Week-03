@@ -5,14 +5,9 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,7 +18,14 @@ class _MyAppState extends State<MyApp> {
 }
 
 // 홈 페이지
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   List<String> memoList = ['장보기 목록: 사과, 양파', '새 메모']; // 전체 메모 목록
 
   @override
@@ -33,7 +35,7 @@ class HomePage extends StatelessWidget {
         title: Text("mymemo"),
       ),
       body: memoList.isEmpty
-          ? Center(child: Text("메모를 작성해 주세요")) // 메모가 존재하지 않다면
+          ? Center(child: Text("메모를 작성해 주세요"))
           : ListView.builder(
               itemCount: memoList.length, // memoList 개수 만큼 보여주기
               itemBuilder: (context, index) {
@@ -67,12 +69,14 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-      //    : Center(child: Text('메모가 존재합니다!')), // 메모가 존재한다면
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
           // + 버튼 클릭시 메모 생성 및 수정 페이지로 이동
           String memo = ''; // 빈 메모 내용 추가
+          setState(() {
+            memoList.add(memo);
+          });
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -99,7 +103,7 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    contentController.text = memoList[index]; // 초기값 지정
+    contentController.text = memoList[index];
 
     return Scaffold(
       appBar: AppBar(
