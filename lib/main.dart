@@ -143,7 +143,7 @@ class DetailPage extends StatelessWidget {
                       // 확인 버튼
                       TextButton(
                         onPressed: () {
-                          //  memoList.removeAt(index); // index에 해당하는 항목 삭제
+                          memoService.deleteMemo(index: index);
                           Navigator.pop(context); // 팝업 닫기
                           Navigator.pop(context); // HomePage 로 가기
                         },
