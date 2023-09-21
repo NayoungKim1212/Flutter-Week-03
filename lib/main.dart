@@ -130,6 +130,7 @@ class DetailPage extends StatelessWidget {
           keyboardType: TextInputType.multiline,
           onChanged: (value) {
             // 텍스트필드 안의 값이 변할 때
+            memoList[index] = value;
           },
         ),
       ),
