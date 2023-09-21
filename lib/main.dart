@@ -111,6 +111,35 @@ class DetailPage extends StatelessWidget {
           IconButton(
             onPressed: () {
               // 삭제 버튼 클릭시
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text("정말로 삭제하시겠습니까?"),
+                    actions: [
+                      // 취소 버튼
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text("취소"),
+                      ),
+                      // 확인 버튼
+                      TextButton(
+                        onPressed: () {
+                          memoList.removeAt(index); // index에 해당하는 항목 삭제
+                          Navigator.pop(context); // 팝업 닫기
+                          Navigator.pop(context); // HomePage 로 가기
+                        },
+                        child: Text(
+                          "확인",
+                          style: TextStyle(color: Colors.pink),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
             },
             icon: Icon(Icons.delete),
           )
